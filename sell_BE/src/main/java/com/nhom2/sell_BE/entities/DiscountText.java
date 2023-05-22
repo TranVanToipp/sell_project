@@ -24,7 +24,7 @@ public class DiscountText implements Serializable {
     @Column(name = "discount_id", length = 36, nullable = false)
     private String discountId;
 
-    @Column(name = "discount_text",columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci", nullable = false)
+    @Column(name = "discount_text",columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String discountText;
 
     @ManyToOne
