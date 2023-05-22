@@ -45,9 +45,6 @@ public class Product implements Serializable {
     @Column(name = "discount", nullable = false, length = 11)
     private int discount;
 
-    @Column(name = "number_stars", nullable = false, length = 11)
-    private int numberStars;
-
     @Column(name = "release_time", nullable = false, length = 11)
     private int releaseTime;
 

@@ -29,6 +29,9 @@ public class Comment implements Serializable {
     @Column(name = "content_comment",columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci", nullable = false)
     private String contentComment;
 
+    @Column(name = "number_stars", nullable = false, length = 11)
+    private int numberStars;
+
     @Column(name = "time_comment", nullable = false)
     @CreationTimestamp
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
