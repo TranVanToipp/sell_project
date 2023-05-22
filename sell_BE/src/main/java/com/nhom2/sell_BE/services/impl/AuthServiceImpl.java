@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
 
         return new JwtResponse(jwt);
     }
-
+    
     @Override
     @Transactional
     public ApiResponse signUpUser(SignupRequest signupRequest) {
