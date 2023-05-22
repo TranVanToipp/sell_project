@@ -10,6 +10,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -51,4 +53,10 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
+
+    @OneToMany(mappedBy="user")
+    private Set<Comment> comments = new HashSet<>();
+
+    @OneToMany(mappedBy="user")
+    private Set<Order> orders = new HashSet<>();
 }
