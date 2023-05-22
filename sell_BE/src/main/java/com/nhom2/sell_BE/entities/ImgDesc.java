@@ -24,7 +24,7 @@ public class ImgDesc implements Serializable {
     @Column(name = "image_id", length = 36, nullable = false)
     private String imageId;
 
-    @Column(name = "image", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "image", columnDefinition = "TEXT")
     private String image;
 
     @ManyToOne
