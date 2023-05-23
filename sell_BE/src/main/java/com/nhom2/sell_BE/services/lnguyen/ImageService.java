@@ -7,4 +7,6 @@ public interface ImageService {
     String saveImage(MultipartFile imageFile) throws Exception;
 
     Resource getImageProductById(String id);
+
+    Resource getImgDescById(String id);
 }
