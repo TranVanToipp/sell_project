@@ -34,7 +34,7 @@ public class SecurityConfig {
     private static final String[] UN_SECURED_URLs = {
             "/api/v1/auth/**",
             "/api/v1/product-home/**",
-            "/api/v1/image/**"
+            "/api/v1/image/**",
             "/api/v1/cart/**"
 
     };
