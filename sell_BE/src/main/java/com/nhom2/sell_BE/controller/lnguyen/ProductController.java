@@ -1,0 +1,64 @@
+package com.nhom2.sell_BE.controller.lnguyen;
+
+import com.nhom2.sell_BE.entities.Product;
+import com.nhom2.sell_BE.payload.response.lnguyen.ProductResponse;
+import com.nhom2.sell_BE.repositories.ProductRepository;
+import com.nhom2.sell_BE.services.lnguyen.ImageService;
+import com.nhom2.sell_BE.services.lnguyen.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.math.BigDecimal;
+
+@RestController
+@RequestMapping("/api/v1/product-home")
+public class ProductController {
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+
+    @GetMapping()
+    public ResponseEntity<?> getAllProductByProductType() {
+        return new ResponseEntity<>(productService.getAllProductByProductType(), HttpStatus.OK);
+    }
+
+    @GetMapping("/see-more/{product-type-id}")
+    public ResponseEntity<?> getAllProductByProductType(@PathVariable("product-type-id") String productTypeId,
+                                                        @RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize) {
+        return new ResponseEntity<>(productService.getAllProductByProductTypeSeeMore(productTypeId, pageNumber, pageSize), HttpStatus.OK);
+    }
+
+    @GetMapping("/details/{product-id}")
+    public ResponseEntity<?> getProductDetails(@PathVariable("product-id") String productId) {
+        return new ResponseEntity<>(productService.getProductDetails(productId), HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> save(@RequestParam("file") MultipartFile file) throws Exception {
+
+        String img =  imageService.saveImage(file);
+
+        Product product = new Product();
+        product.setTitle("abc");
+        product.setPrice(BigDecimal.valueOf(120.00));
+        product.setNumber(1);
+        product.setThumbnail(img);
+        product.setDiscount(20);
+        product.setReleaseTime(2022);
+        product.setDescription("ábbb");
+
+        Product newProduct = productRepository.save(product);
+
+        return new ResponseEntity<>("", HttpStatus.CREATED);
+    }
+}
