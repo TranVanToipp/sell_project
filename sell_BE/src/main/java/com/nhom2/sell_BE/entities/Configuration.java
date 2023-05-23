@@ -47,6 +47,9 @@ public class Configuration implements Serializable {
     @Column(name = "sim",columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String sim;
 
+    @Column(name = "pin",length = 10)
+    private String pin;
+
     @OneToMany(mappedBy="configuration")
     private Set<Product> products = new HashSet<>();
 }

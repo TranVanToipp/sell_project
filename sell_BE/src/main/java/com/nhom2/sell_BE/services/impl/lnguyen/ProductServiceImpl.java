@@ -1,18 +1,21 @@
 package com.nhom2.sell_BE.services.impl.lnguyen;
 
-import com.nhom2.sell_BE.entities.Comment;
-import com.nhom2.sell_BE.entities.Product;
-import com.nhom2.sell_BE.entities.ProductType;
-import com.nhom2.sell_BE.payload.response.lnguyen.ProductResponse;
-import com.nhom2.sell_BE.payload.response.lnguyen.ProductTypeResponse;
+import com.nhom2.sell_BE.entities.*;
+import com.nhom2.sell_BE.exception.DataNotFoundException;
+import com.nhom2.sell_BE.payload.response.lnguyen.*;
 import com.nhom2.sell_BE.repositories.CommentRepository;
 import com.nhom2.sell_BE.repositories.ProductRepository;
 import com.nhom2.sell_BE.repositories.ProductTypeRepository;
 import com.nhom2.sell_BE.services.lnguyen.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Value("${sellsmartphone.app.path-image}")
     private String pathImage;
+
+    @Value("${sellsmartphone.app.path-img-desc}")
+    private String pathImgDesc;
 
     @Autowired
     private ProductTypeRepository productTypeRepository;
@@ -39,14 +45,105 @@ public class ProductServiceImpl implements ProductService {
         }
         List<ProductTypeResponse> productTypeResponses = new ArrayList<>();
         for (ProductType item : productTypes){
-            productTypeResponses.add(setupResponse(item));
+            List<Product> products = productRepository.findAllByProductTypeIdWithLimit(item.getProductTypeId());
+            productTypeResponses.add(setupResponse(item, products));
         }
 
         return productTypeResponses;
     }
 
-    public ProductTypeResponse setupResponse(ProductType item){
-        List<Product> products = productRepository.findAllByProductTypeIdWithLimit(item.getProductTypeId());
+    @Override
+    public Page<ProductResponse> getAllProductByProductTypeSeeMore(String productTypeId, int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("createdAt").descending());
+        ProductType productType = productTypeRepository.findById(productTypeId).orElseThrow(()->new DataNotFoundException("Product Type Not Found"));
+
+        Page<Product> products = productRepository.findAllByProductType(productType , pageable);
+
+        return products.map(product -> {
+            List<Comment> comments = commentRepository.findAllByProduct(product);
+            String thumbnail = pathImage + product.getProductId();
+            int numberStars = 0;
+            int totalStars = 0;
+            if(comments.isEmpty()){
+                numberStars = 5;
+            }else {
+                for (Comment comment : comments){
+                    totalStars += comment.getNumberStars();
+                }
+                numberStars = totalStars/comments.size();
+            }
+            return new ProductResponse(product, thumbnail, numberStars);
+        });
+    }
+
+    @Override
+    public ProductDetailsResponse getProductDetails(String productId) {
+
+        Product product = productRepository.findById(productId).orElseThrow(()->new DataNotFoundException("Product Not Found"));
+
+        String thumbnail = pathImage + product.getProductId();
+
+        List<Comment> comments = commentRepository.findAllByProduct(product);
+        int numberStars = 0;
+        int totalStars = 0;
+        if(comments.isEmpty()){
+            numberStars = 5;
+        }else {
+            for (Comment comment : comments){
+                totalStars += comment.getNumberStars();
+            }
+            numberStars = totalStars/comments.size();
+        }
+        BigDecimal discountDecimal = new BigDecimal(product.getDiscount());
+        BigDecimal hundred = new BigDecimal(100);
+
+
+        ProductDetailsResponse productDetails = new ProductDetailsResponse();
+        productDetails.setProductId(product.getProductId());
+        productDetails.setTitle(product.getTitle());
+        productDetails.setNumber(product.getNumber());
+        productDetails.setPrice(product.getPrice());
+        productDetails.setDiscount(product.getDiscount());
+        productDetails.setPriceDiscount(product.getPrice().subtract(product.getPrice().multiply(discountDecimal).divide(hundred)));
+        productDetails.setThumbnail(thumbnail);
+        productDetails.setNumberStars(numberStars);
+        productDetails.setReleaseTime(product.getReleaseTime());
+
+        List<ImgDescResponse> listImgDesc = new ArrayList<>();
+        for(ImgDesc item : product.getImgDesc()){
+            ImgDescResponse imgDesc = new ImgDescResponse();
+            String pathImg = pathImgDesc + item.getImageId();
+            imgDesc.setImageId(item.getImageId());
+            imgDesc.setImage(pathImg);
+            listImgDesc.add(imgDesc);
+        }
+        productDetails.setImgDesc(listImgDesc);
+
+        List<DiscountTextResponse> discountTextResponses = new ArrayList<>();
+        for (DiscountText item : product.getDiscountTexts()){
+            DiscountTextResponse discountText = new DiscountTextResponse();
+            discountText.setDiscountId(item.getDiscountId());
+            discountText.setDiscountText(item.getDiscountText());
+            discountTextResponses.add(discountText);
+        }
+        productDetails.setDiscountText(discountTextResponses);
+
+        ConfigResponse config = new ConfigResponse();
+        config.setScreen(product.getConfiguration().getScreen());
+        config.setOperatingSys(product.getConfiguration().getOperatingSys());
+        config.setFrontCamera(product.getConfiguration().getFrontCamera());
+        config.setRearCamera(product.getConfiguration().getRearCamera());
+        config.setChip(product.getConfiguration().getChip());
+        config.setRam(product.getConfiguration().getRam());
+        config.setSim(product.getConfiguration().getSim());
+        config.setPin(product.getConfiguration().getPin());
+
+        productDetails.setConfig(config);
+
+        return productDetails;
+    }
+
+    public ProductTypeResponse setupResponse(ProductType item, List<Product> products){
         ProductTypeResponse productTypeResponse = new ProductTypeResponse();
         if(products.isEmpty());
         else {
@@ -66,10 +163,20 @@ public class ProductServiceImpl implements ProductService {
                     }
                     numberStars = totalStars/comments.size();
                 }
-                ProductResponse productResponse = new ProductResponse(itemProduct.getProductId(),itemProduct.getTitle(),
-                        itemProduct.getPrice(), itemProduct.getNumber(), thumbnail, itemProduct.getDiscount(), numberStars,
-                        itemProduct.getReleaseTime(), itemProduct.getDescription());
+                BigDecimal discountDecimal = new BigDecimal(itemProduct.getDiscount());
+                BigDecimal hundred = new BigDecimal(100);
 
+                ProductResponse productResponse = new ProductResponse();
+                productResponse.setProductId(itemProduct.getProductId());
+                productResponse.setTitle(itemProduct.getTitle());
+                productResponse.setPrice(itemProduct.getPrice());
+                productResponse.setNumber(itemProduct.getNumber());
+                productResponse.setThumbnail(thumbnail);
+                productResponse.setDiscount(itemProduct.getDiscount());
+                productResponse.setPriceDiscount(itemProduct.getPrice().subtract(itemProduct.getPrice().multiply(discountDecimal).divide(hundred)));
+                productResponse.setNumberStars(numberStars);
+                productResponse.setReleaseTime(itemProduct.getReleaseTime());
+                productResponse.setDescription(itemProduct.getDescription());
                 productResponses.add(productResponse);
             }
             productTypeResponse.setProducts(productResponses);
