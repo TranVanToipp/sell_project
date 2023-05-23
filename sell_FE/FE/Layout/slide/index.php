@@ -1,46 +1,5 @@
       
-    <style>
-    .header__slide-show .slide-left{
-        position:absolute;
-        left: 55px;
-        top: 40%;
-        font-size: 1.4rem;
-        border:10px solid #ccc;
-        background-color:#ccc;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
-        opacity: 0.7;
-    }
 
-    .slide-left:hover {
-        opacity: 0.5;
-    }
-
-    .header__slide-show .slide-right{
-        position:absolute;
-        right: 457px;
-        top: 40%;
-        font-size: 1.4rem;
-        border:10px solid #ccc;
-        background-color:#ccc;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
-        opacity: 0.7;
-    }  
-
-    .header__slide-item .active {
-        color: #f60;
-    }
-
-    .slide-right:hover {
-        opacity: 0.5;
-    }
-        
-    </style>
     <div class="grid wide">
         <div class="grid-row-1">
             <div class="grid-column-8">
