@@ -39,7 +39,7 @@ public class Product implements Serializable {
     @Column(name = "number", nullable = false, length = 11)
     private int number;
 
-    @Column(name = "thumbnail", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "thumbnail", columnDefinition = "LONGTEXT", nullable = false)
     private String thumbnail;
 
     @Column(name = "discount", nullable = false, length = 11)
