@@ -31,13 +31,13 @@ public class User implements Serializable {
     @Column(name = "full_name", columnDefinition = "VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci", nullable = false)
     private String fullName;
 
-    @Column(name = "phone_number", length = 12, nullable = false)
+    @Column(name = "phone_number", length = 12)
     private  String phoneNumber;
 
     @Column(name = "email", length = 50, nullable = false,unique = true)
     private  String email;
 
-    @Column(name = "address", columnDefinition = "VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci", nullable = false)
+    @Column(name = "address", columnDefinition = "VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String address;
 
     @Column(name = "status")

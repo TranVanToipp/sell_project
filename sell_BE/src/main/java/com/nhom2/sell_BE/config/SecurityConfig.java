@@ -33,6 +33,8 @@ public class SecurityConfig {
 
     private static final String[] UN_SECURED_URLs = {
             "/api/v1/auth/**",
+            "/comment-product/**",
+            "/comment-product",
             "/api/v1/product-home/**",
             "/api/v1/image/**",
             "/api/v1/image/img-desc/**",
@@ -41,6 +43,7 @@ public class SecurityConfig {
     };
 
     private static final String[] HTTP_METHOD_GET_UN_SECURED_URLs = {
+            "/api/v1/comment/**"
     };
 
     private static final String[] HTTP_METHOD_POST_UN_SECURED_URLs = {
