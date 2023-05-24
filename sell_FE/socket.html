@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Example</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <div id="message-container"></div>
+
+    <script>
+        var socket = new SockJS('http://localhost:8888/comment-product');
+        var stompClient = Stomp.over(socket);
+        var messageContainerf = document.getElementById('message-container');
+        stompClient.connect({}, function (frame) {
+            console.log('Connected to WebSocket');
+
+            var productId = '1'; // Thay đổi 'your-product-id' thành product ID tương ứng
+
+            stompClient.subscribe('/topic/comments', function (response) {
+                var commentData = JSON.parse(response.body);
+                if (commentData.productId === productId) {
+                    var messageContainer = document.getElementById('message-container');
+                    var message = document.createElement('p');
+                    message.textContent = commentData.contentComment;
+                    messageContainer.appendChild(message);
+                }
+                console.log(Array.isArray(commentData));
+                commentData.forEach(item=> {
+                    console.log(item.contentComment)
+                    var html = `
+                        <div>${item.contentComment}</div>
+                    `
+                    messageContainerf.innerText = html;
+                });
+            });
+
+            stompClient.send('/app/comments', {}, productId);
+        });
+    </script>
+</body>
+</html>

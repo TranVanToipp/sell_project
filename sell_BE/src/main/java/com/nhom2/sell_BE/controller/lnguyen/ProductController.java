@@ -48,10 +48,6 @@ public class ProductController {
     public ResponseEntity<?> save(@RequestParam("file") MultipartFile file) throws Exception {
 
         String img =  imageService.saveImage(file);
-<<<<<<< HEAD
-=======
-
->>>>>>> 46b2b3354efcd42d3b83de34553be7e16aca48fc
         return new ResponseEntity<>(img, HttpStatus.OK);
     }
 
