@@ -51,7 +51,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public CommentResponse createComment(CommentRequest request) {
-        User user = getUser();
+        return setupData(request, getUser());
+    }
+
+    @Override
+    @Transactional
+    public CommentResponse createCommentWS(CommentRequest request, String token) {
+        return setupData(request, getUserOfSocket(token));
+    }
+
+    public CommentResponse setupData(CommentRequest request, User user){
         Comment comment = new Comment();
         comment.setContentComment(request.getContentComment());
         comment.setNumberStars(request.getNumberStars());
