@@ -3,6 +3,7 @@ package com.nhom2.sell_BE.controller.lnguyen;
 import com.nhom2.sell_BE.entities.Product;
 import com.nhom2.sell_BE.payload.response.lnguyen.ProductResponse;
 import com.nhom2.sell_BE.repositories.ProductRepository;
+import com.nhom2.sell_BE.services.lnguyen.CommentService;
 import com.nhom2.sell_BE.services.lnguyen.ImageService;
 import com.nhom2.sell_BE.services.lnguyen.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ProductController {
     private ImageService imageService;
 
     @Autowired
-    private ProductRepository productRepository;
+    private CommentService commentService;
 
 
     @GetMapping()
@@ -47,6 +48,11 @@ public class ProductController {
     public ResponseEntity<?> save(@RequestParam("file") MultipartFile file) throws Exception {
 
         String img =  imageService.saveImage(file);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 46b2b3354efcd42d3b83de34553be7e16aca48fc
         return new ResponseEntity<>(img, HttpStatus.OK);
     }
+
 }
