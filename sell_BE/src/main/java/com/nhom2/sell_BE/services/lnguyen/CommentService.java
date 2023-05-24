@@ -10,4 +10,6 @@ public interface CommentService {
     List<CommentResponse> getAllCommentByProduct(String productId);
 
     CommentResponse createComment(CommentRequest request);
+
+    CommentResponse createCommentWS(CommentRequest request, String token);
 }
