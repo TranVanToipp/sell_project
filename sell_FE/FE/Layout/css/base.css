@@ -78,6 +78,8 @@ html {
     position: relative;
     padding: 20px 15px;
     border-radius: 10px;
+    margin-bottom: 20px;
+    background: #fff;
 }
 
 .home-product-item:hover {

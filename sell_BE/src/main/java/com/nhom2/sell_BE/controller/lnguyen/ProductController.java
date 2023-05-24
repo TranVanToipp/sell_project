@@ -47,18 +47,6 @@ public class ProductController {
     public ResponseEntity<?> save(@RequestParam("file") MultipartFile file) throws Exception {
 
         String img =  imageService.saveImage(file);
-
-        Product product = new Product();
-        product.setTitle("abc");
-        product.setPrice(BigDecimal.valueOf(120.00));
-        product.setNumber(1);
-        product.setThumbnail(img);
-        product.setDiscount(20);
-        product.setReleaseTime(2022);
-        product.setDescription("ábbb");
-
-        Product newProduct = productRepository.save(product);
-
-        return new ResponseEntity<>("", HttpStatus.CREATED);
+        return new ResponseEntity<>(img, HttpStatus.OK);
     }
 }

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src= "../../Javascript/Toast_mes.js"></script>
+    <link rel="stylesheet" href="../../FE/Layout/css/style.css">
+    <title>Đăng kí</title>
+    
+</head>
+<body>
+    <div class="main">
+        <div  class="form" id="form-1">
+          <h3 class="heading">Đăng kí tài khoản</h3>
+          <div class="spacer"></div>
+      
+          <div class="form-group">
+            <label for="fullname" class="form-label">Họ và tên</label>
+            <input id="fullname" name="fullname" required type="text" placeholder="VD: tvtoi" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" name="email" required type="email" placeholder="VD: email@domain.com" class="form-control">
+            <span class="form-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="username" class="form-label">Tên tài khoản: </label>
+            <input id="username" name="userName" required type="text"  placeholder="Nhập tên tài khoản" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input id="password" name="password" required type="password" minlength="6" placeholder="Nhập mật khẩu" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+            <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" minlength="6" required type="password" class="form-control">
+            <span class="form-message"></span>
+          </div>
+          <div class="form-dangki">
+        <a href="#" class="form-dangki-link">Đăng nhập tài khoản</a>
+    </div>
+          <button onclick="register()" class="form-submit">Đăng ký</button>
+        </div>
+      <script>
+            function showErrorToast(title, message, type, duration) {
+                toast({
+                    title: title,
+                    message: message,
+                    type: type,
+                    duration: duration
+                });
+            }
+      </script>
+
+<script>
+    function register() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const fullname = document.getElementById("fullname").value;
+      const email = document.getElementById("email").value;
+
+      const data = {
+          username: username,
+          password: password,
+          user: {
+              fullName: fullname,
+              email: email
+          }
+      };
+      
+      const apiRegister = 'http://localhost:8888/api/v1/auth/signupuser';
+      fetch(apiRegister, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      })
+      .then(function(response) {
+          if (response.ok) {
+              window.location.href = 'http://127.0.0.1:5500/sell_FE/authen/login/login.html';
+          } else {
+              showErrorToast("Thất bại!", "Đăng kí tài khoản thất bại!!", "error", 5000);
+          }
+      })
+      .catch(function(error) {
+          showErrorToast("Có lỗi!", "Có lỗi đã xảy ra. Vui lòng kiểm tra lại!", "error", 5000);
+          console.log('Error');
+      });
+    }
+
+</script>
+		<script src= "../../Javascript/Toast_mes.js"></script>
+      </div>
+</body>
+</html>

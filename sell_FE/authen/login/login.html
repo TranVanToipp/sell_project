@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../FE/Layout/css/style.css">
+    <link rel="stylesheet" href="../../FE/Layout/css/responsive.css">
+    <link rel="stylesheet" href="../../FE/Layout/css/grid.css">
+    <link rel="stylesheet" href="../../FE/Layout/css/toast.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
+    <title>Đăng nhập</title>
+</head>
+<body>
+<div class="main">
+<div id="toast"></div>
+  <div class="form l-12 c-12" id="form-1">
+      <h3 class="heading">Đăng nhập tài khoản</h3>
+       <div class="spacer"></div>
+    <div class="form-group c-12 ">
+        <label for="fullname" class="form-label">Tên tài khoản: </label>
+        <input id="username" name="userName" type="text" required placeholder="VD: tvtoi" class="form-control">
+        <span class="form-message"></span>
+    </div>
+
+    <div class="form-group c-12">
+        <label for="password" class="form-label">Nhập mật khẩu: </label>
+        <input id="password" name="password" required type="password"   class="form-control">
+        <span class="form-message"></span>
+    </div>
+    <div class="form-dangki c-12">
+        <a href="../register/index.php" class="form-dangki-link">Đăng kí tài khoản</a>
+    </div>
+    <button onclick="login()" class="form-submit">Đăng nhập</button>
+  </div>
+  <script>
+    function showErrorToast(title, message, type, duration) {
+        toast({
+            title: title,
+            message: message,
+            type: type,
+            duration: duration
+        });
+    }
+</script>
+<script src= "../../Javascript/Toast_mes.js"></script>
+
+<script>
+    function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const data = {
+            username: username,
+            password: password
+        };
+        console.log(data);
+        const api = 'http://localhost:8888/api/v1/auth/signin';
+        fetch(api, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(function(response) {
+            if (response.ok) {
+                window.location.href = 'http://127.0.0.1:5500/sell_FE/';
+            } else {
+                showErrorToast("Thất bại!", "Tài khoản hoặc mật khẩu sai. Vui lòng kiểm tra lại!", "error", 5000);
+            }
+        })
+        .catch(function(error) {
+            showErrorToast("Có lỗi!", "Có lỗi đã xảy ra. Vui lòng kiểm tra lại!", "error", 5000);
+            console.log('Error');
+        });
+    }
+</script>
+ 
+</div>
+
+</body>
+</html>

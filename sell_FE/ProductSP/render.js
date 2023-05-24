@@ -5,10 +5,6 @@ window.addEventListener('load', function() {
 var apiProductHome = "http://localhost:8888/api/v1/product-home";
 var elementProduct = document.querySelector(".product-laysanpham");
 var elementHomeProduct = document.querySelector(".chitiet-item__product");
-
-
-
-
 fetch(apiProductHome)
   .then(response => response.json())
   .then(data => {
@@ -35,10 +31,10 @@ fetch(apiProductHome)
 
         element.products.forEach(item => {
             html+=`
-                <a href ="#" class="chitiet-item__product col l-2-4 m-4 c-6" style="text-decoration: none;">
+                <a href ="./chitietSP/details.html?details=${item.productId}" class="chitiet-item__product col l-2-4 m-4 c-6" style="text-decoration: none;">
                     <div class="home-product-item">
-                            <div class="home-product-item-img" style="background-image:url(${item.thumbnail}");"></div>
-                            <h4 class="home-product-item-name">${item.name}</h4>
+                            <div class="home-product-item-img" style="background-image:url(${item.thumbnail})"></div>
+                            <h4 class="home-product-item-name">${item.title}</h4>
                         <div class="home-product-item-price">
                             <span class="home-product-item__price-current">${item.price}₫</span>
                             <span class="home-product-item__price-old">${item.price}₫</span>
