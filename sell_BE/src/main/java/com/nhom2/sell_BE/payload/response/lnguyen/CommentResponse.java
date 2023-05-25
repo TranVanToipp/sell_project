@@ -24,7 +24,7 @@ public class CommentResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timeComment;
 
-    private String userId;
+    private String fullName;
 
     private String productId;
 
@@ -33,7 +33,7 @@ public class CommentResponse {
         this.contentComment = comment.getContentComment();
         this.numberStars = comment.getNumberStars();
         this.timeComment = comment.getTimeComment();
-        this.userId = comment.getUser().getUserId();
+        this.fullName = comment.getUser().getFullName();
         this.productId = comment.getProduct().getProductId();
     }
 }

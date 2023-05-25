@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../FE/Layout/css/grid.css">
     <link rel="stylesheet" href="../../FE/Layout/css/toast.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-
+    <script src="./handelLogin.js"></script>
     <title>Đăng nhập</title>
 </head>
 <body>
@@ -46,37 +46,7 @@
 </script>
 <script src= "../../Javascript/Toast_mes.js"></script>
 
-<script>
-    function login() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
 
-        const data = {
-            username: username,
-            password: password
-        };
-        console.log(data);
-        const api = 'http://localhost:8888/api/v1/auth/signin';
-        fetch(api, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(function(response) {
-            if (response.ok) {
-                window.location.href = 'http://127.0.0.1:5500/sell_FE/';
-            } else {
-                showErrorToast("Thất bại!", "Tài khoản hoặc mật khẩu sai. Vui lòng kiểm tra lại!", "error", 5000);
-            }
-        })
-        .catch(function(error) {
-            showErrorToast("Có lỗi!", "Có lỗi đã xảy ra. Vui lòng kiểm tra lại!", "error", 5000);
-            console.log('Error');
-        });
-    }
-</script>
  
 </div>
 

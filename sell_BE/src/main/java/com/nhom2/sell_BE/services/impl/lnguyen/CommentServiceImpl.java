@@ -78,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
         commentResponse.setNumberStars(newComment.getNumberStars());
         commentResponse.setTimeComment(LocalDateTime.now());
         commentResponse.setProductId(newComment.getProduct().getProductId());
-        commentResponse.setUserId(newComment.getUser().getUserId());
+        commentResponse.setFullName(newComment.getUser().getFullName());
 
         return commentResponse;
     }

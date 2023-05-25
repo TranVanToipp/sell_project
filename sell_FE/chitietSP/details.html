@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="/sell_FE/FE/Layout/css/grid.css">
     <link rel="stylesheet" href="/sell_FE/FE/Layout/css/responsive.css">
     <link rel="stylesheet" href="/sell_FE/font/fontawesome-free-6.1.2-web/css/all.min.css">
-	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <link rel="stylesheet" href="../FE/Layout/css/chitiet.css">
 <link rel="stylesheet" href="../FE/Layout/css/cart.css">
 <script src = " https://code.jquery.com/jquery-3.1.1.min.js "></script>
@@ -180,6 +181,8 @@
 				</div>
 			</div>
 				`;
+
+
 					var container = document.querySelector('.form-active-chitiet');
 					container.innerHTML = html;
 				})
@@ -189,7 +192,443 @@
 		}
 		</script>
 			
+
+
 		</div>
 	</div>
 </div>
+
+
+<div class="grid wide">
+	<div class="comment_content">
+		<!-- Comment -->
+		<div class="l-9 c-12 comment_chitiet_content">
+		<span id="message"></span>
+			<div class="comment_heading">
+				<div class="comment_heading-name">
+					Đánh giá Điện thoại thông minh
+				</div>
+			</div> 
+			
+
+
+			<div class="comment_form_content ">
+					<div class="row l-3 c-3">
+						<div class="row_cmt--1">
+							<p class="row_cmt--col">
+								4.6
+								<span>
+									/5
+								</span>
+							</p>
+							<div class="comment_1--start">
+								<img src="../assets/img/Comment/star-fill.png" alt="">
+								&nbsp;
+								<img src="../assets/img/Comment/star-fill.png" alt="">
+								&nbsp;
+								<img src="../assets/img/Comment/star-fill.png" alt="">
+								&nbsp;
+								<img src="../assets/img/Comment/star-fill.png" alt="">
+								&nbsp;
+								<img src="../assets/img/Comment/star-fill.png" alt="">
+							</div>
+							<p class="cmt_count">
+								(2 đánh giá )
+							</p>
+						</div>
+					</div>
+					<div class="l-6 c-6">
+						<div class="row_cmt--2">
+							<div class="row_cmt--rating">
+								
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="row_cmt--progess1">
+									<div class="progress">
+										<div class="progress-bar" style="width:90%">
+
+										</div>
+									</div>
+								</div>
+								<p class="phantram-text">
+									90%
+								</p>
+
+								<!-- 4 sao -->
+							</div>
+							<div class="row_cmt--rating">
+								
+
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="phantram_sao">
+									<div class="phantram_sao--p">
+										<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+									</div>
+								</div>
+								<div class="row_cmt--progess1">
+									<div class="progress">
+										<div class="progress-bar" style="width:80%">
+										</div>
+									</div>
+								</div>
+								<p class="phantram-text">
+									80%
+								</p>
+							</div>
+						<div class="row_cmt--rating">
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="row_cmt--progess1">
+								<div class="progress">
+									<div class="progress-bar" style="width:70%">
+
+									</div>
+								</div>
+							</div>
+							<p class="phantram-text">
+								70%
+							</p>
+						</div>
+
+						<div class="row_cmt--rating">
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="row_cmt--progess1">
+								<div class="progress">
+									<div class="progress-bar" style="width:50%">
+
+									</div>
+								</div>
+							</div>
+							<p class="phantram-text">
+							50%
+							</p>
+
+						</div>
+						<div class="row_cmt--rating">
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-fill.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="phantram_sao">
+								<div class="phantram_sao--p">
+									<img src="../assets/img/Comment/star-empty.png" alt="" class="lazy-loaded">
+								</div>
+							</div>
+							<div class="row_cmt--progess1">
+								<div class="progress">
+									<div class="progress-bar" style="width:10%">
+
+									</div>
+								</div>
+							</div>
+							<p class="phantram-text">
+								10%
+							</p>
+						</div>
+					</div>
+				</div>
+
+							<!-- 2 -->
+							<div class="row l-3 c-3">
+								<div class="cmt_row--3">
+									<p class="cmt_row--3-p">
+										<a href="" class = "cmt_row--3-p__link">
+											<span class="cmt_row--text-1">
+												Viết đánh giá
+											</span>
+											<span class="cmt_row--text-2">
+												Đóng đánh giá	
+											</span>
+											<!-- <span class="cmt_row--text">
+												Đóng bình luận
+											</span> -->
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<form method="POST" class="comment-form" id="commentForm">
+							<div class="comments-content__container">
+								<div class="comment-form">
+									<div class="comment-form__content">
+										<div class="comment-form__heading">
+											<div class="comment-form__heading-text">
+												Đánh giá của bạn về sản phẩm:
+											</div>
+										</div>
+										<div id="rating">
+											<input type="radio" id="star5" name="rating" value="5" />
+											<label class = "full" for="star5" title="Awesome - 5 stars"></label>
+										
+											<input type="radio" id="star4" name="rating" value="4" />
+											<label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+										
+											<input type="radio" id="star3" name="rating" value="3" />
+											<label class = "full" for="star3" title="Meh - 3 stars"></label>
+										
+											<input type="radio" id="star2" name="rating" value="2" />
+											<label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+										
+											<input type="radio" id="star1" name="rating" value="1" />
+											<label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+										</div>
+									</div>
+									<div class="comment-form__form-content">
+										<div class="l-6 m-6 c-12">
+											<textarea class ="form-control" placeholder="Nội dung đánh giá của bạn" name="comment" id="comment"></textarea>
+										</div>
+										<div class="l-6 m-6 c-12">
+											<div class="row-l-6__content">
+												<div class="row_form-control-2">
+													<input type="submit" class = "btn_submit-danhgia" name="submit" id="submit" value="Gửi đánh giá">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+						<!-- Code comment tại đây -->
+						<div class="comment_chitiet--hienthi" id="showComments">
+	<script>
+		var html = '';
+		var token = localStorage.getItem('token');
+		var commentParam = getQueryParamValue('details');
+		var productId = commentParam;
+		submitComment();
+		function submitComment() {
+			var getElementSubmit = document.querySelector('.btn_submit-danhgia');
+			var containerComment = document.querySelector('.comment_chitiet--hienthi');
+			getElementSubmit.addEventListener("click", function() {
+				var socket = new SockJS('http://localhost:8888/comment-product');
+				var stompClient = Stomp.over(socket);
+				var messageContainerf = document.getElementById('message-container');
+				
+				var token = localStorage.getItem('token');
+				console.log(token);
+				var headers = {
+					Authorization: 'Bearer '+ token // Thay thế <jwtToken> bằng mã thông báo xác thực của bạn
+				};
+				
+				stompClient.connect(headers, function (frame) {
+					stompClient.subscribe('/topic/createComment', function(message) {
+						var comment = JSON.parse(message.body);
+						console.log("Tin Nhắn Mới: ", comment);
+						html += `
+						<div class="comment_item--hienthi">
+								<div class="comment_item-content">
+									<div class="comment_item--info">
+										<span class="comment_item--name">
+											<strong class="comment_item--name-text">
+												${comment.fullName}
+											</strong>
+										</span>
+										<div class="comment_item--sao_hienthi">
+											<img src="../assets/img/Comment/star-fill.png" alt="">
+											<img src="../assets/img/Comment/star-empty.png" class = "img-sao__danhgia" alt="">
+										</div>
+										<span class="comment_item--thoigian">
+											${comment.timeComment}
+										</span>
+									</div>
+									<div class = "comment_item--admin__group">
+										<a href="'.$path.'WebDiDong_PTPMCN/DiThoaiThongMinh-PTPMCN/PHPREST/api/comment/deleteComment.php?id='.$item->id.'" class = "comment_item--admin__xoa">Xóa</a>
+										<button class = "comment_item--admin__traloi reply" id="'.$item->id.'">Trả lời</button>
+									</div>
+									<div class="comment_content--noidung">
+										${comment.contentComment}
+									</div>
+								</div>
+							</div>
+						`;
+						containerComment.innerHTML = html;
+						// Xử lý thông tin bình luận mới ở đây
+					});
+
+					// Gửi tin nhắn tới endpoint "/comment" với mã thông báo xác thực
+					var contentComment = document.querySelector('.form-control').value;
+					var productId = commentParam;
+					var numberStars = document.querySelector('input[name="rating"]:checked').value;
+
+					var commentRequest = {
+						contentComment: contentComment,
+						numberStars: numberStars,
+						productId: productId
+					};
+
+					stompClient.send('/app/comment', headers, JSON.stringify(commentRequest));
+
+				});
+			});
+		}
+		function getQueryParamValue(paramName) {
+			var urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get(paramName);
+		}
+		var socket = new SockJS('http://localhost:8888/comment-product');
+		var stompClient = Stomp.over(socket);
+		var messageContainerf = document.getElementById('message-container');
+		stompClient.connect({}, function (frame) {
+			stompClient.subscribe('/topic/comments', function (response) {
+				var commentData = JSON.parse(response.body);
+				if (commentData.productId === productId) {
+					var messageContainer = document.getElementById('message-container');
+					var message = document.createElement('p');
+					message.textContent = commentData.contentComment;
+					messageContainer.appendChild(message);
+				}
+				var containerComment = document.querySelector('.comment_chitiet--hienthi');
+				commentData.forEach(item=> {
+				console.log(item);
+				html +=`
+					<div class="comment_item--hienthi">
+						<div class="comment_item-content">
+							<div class="comment_item--info">
+								<span class="comment_item--name">
+									<strong class="comment_item--name-text">
+										${item.fullName}
+									</strong>
+								</span>
+								<div class="comment_item--sao_hienthi">
+									<img src="../assets/img/Comment/star-fill.png" alt="">
+									<img src="../assets/img/Comment/star-empty.png" class = "img-sao__danhgia" alt="">
+								</div>
+								<span class="comment_item--thoigian">
+									${item.timeComment}
+								</span>
+							</div>
+							<div class = "comment_item--admin__group">
+								<a href="'.$path.'WebDiDong_PTPMCN/DiThoaiThongMinh-PTPMCN/PHPREST/api/comment/deleteComment.php?id='.$item->id.'" class = "comment_item--admin__xoa">Xóa</a>
+								<button class = "comment_item--admin__traloi reply" id="'.$item->id.'">Trả lời</button>
+							</div>
+							<div class="comment_content--noidung">
+								${item.contentComment}
+							</div>
+						</div>
+					</div>`;
+					containerComment.innerHTML = html;
+				});
+			});
+			stompClient.send('/app/comments', {}, productId);
+		});
+	</script>
+
+						</div>
+							<script src="./comment.js"></script>
+
+							
+						</div>
+					<!-- Tin tức -->
+					<div class="l-3 tintuc-chitiet__content">
+						Tin tức
+					</div>
+				</div>
+
+				<!-- show comment -->
+			
 <script src="../footer.js"></script>

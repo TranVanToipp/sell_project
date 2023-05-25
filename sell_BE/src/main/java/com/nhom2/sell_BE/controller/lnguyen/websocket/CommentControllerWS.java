@@ -30,7 +30,6 @@ public class CommentControllerWS {
     @MessageMapping("/comment")
     @SendTo("/topic/comment")
     public CommentResponse createCommentWS(@Payload CommentRequest commentRequest, StompHeaderAccessor headers){
-
         String bearerToken = headers.getFirstNativeHeader("Authorization");
         String jwtToken = bearerToken.substring(7);
         CommentResponse comment = commentService.createCommentWS(commentRequest,jwtToken);
