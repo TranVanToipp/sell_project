@@ -38,7 +38,8 @@ public class SecurityConfig {
             "/api/v1/product-home/**",
             "/api/v1/image/**",
             "/api/v1/image/img-desc/**",
-            "/api/v1/cart/**"
+            "/api/v1/cart/**",
+            "/api/v1/**"
 
     };
 
@@ -69,6 +70,7 @@ public class SecurityConfig {
         http.cors();
         http.csrf().disable().authorizeHttpRequests()
                 .requestMatchers(UN_SECURED_URLs).permitAll()
+                .requestMatchers("/api/**").permitAll()
                 .requestMatchers(HttpMethod.GET,HTTP_METHOD_GET_UN_SECURED_URLs).permitAll()
                 .requestMatchers(HttpMethod.POST,HTTP_METHOD_POST_UN_SECURED_URLs).permitAll()
                 .anyRequest()
