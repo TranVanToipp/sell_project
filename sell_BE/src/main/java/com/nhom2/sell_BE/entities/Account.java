@@ -2,6 +2,7 @@ package com.nhom2.sell_BE.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "tbl_account")
 public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
