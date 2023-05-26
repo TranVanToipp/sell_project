@@ -3,6 +3,7 @@ package com.nhom2.sell_BE.controller.thiennt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,24 +27,28 @@ public class ProductAdminController {
   private ProductAdminService productAdminService;
 
   @GetMapping("get_all")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> getAllProduct() {
     return productAdminService.getAllProductAdmin();
   }
 
   @PostMapping(value = "create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = MediaType.APPLICATION_JSON_VALUE)
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> createProduct( @RequestParam("file") MultipartFile file, @ModelAttribute("request") ProductAdminRequest request) throws Exception {
      return productAdminService.CreateProductAdmin(file ,request);
   }
 
   @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = MediaType.APPLICATION_JSON_VALUE)
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> updateProduct(@RequestParam("file") MultipartFile file , @PathVariable("id") String id,
       @ModelAttribute("request") ProductAdminRequest productAdminRequest) {
     return productAdminService.updateProductAdmin(id, productAdminRequest, file);
   }
 
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> deleteProduct(@PathVariable("id") String id) {
     return productAdminService.deleteProductAdmin(id);
   }
