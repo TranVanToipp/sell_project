@@ -3,6 +3,7 @@ package com.nhom2.sell_BE.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "tbl_order_details")
+@Builder
 public class OrderDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
