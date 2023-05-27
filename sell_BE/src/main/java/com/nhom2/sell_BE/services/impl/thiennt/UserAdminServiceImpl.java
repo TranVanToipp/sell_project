@@ -3,6 +3,9 @@ package com.nhom2.sell_BE.services.impl.thiennt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import com.nhom2.sell_BE.exception.DataNotFoundException;
+import com.nhom2.sell_BE.utils.JwtProviderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,9 @@ public class UserAdminServiceImpl implements UserAdminService {
   @Autowired
   private AccountRepository accountRepository;
 
+  @Autowired
+  private JwtProviderUtils jwtProviderUtils;
+
   @Override
   public ResponseEntity<Object> getAllUSerAdmin() {
     List<User> lst = userRepositories.findAll();
@@ -51,6 +57,25 @@ public class UserAdminServiceImpl implements UserAdminService {
          .build();
      response.add(respon);
   }
+    return ResponseEntity.ok().body(response);
+  }
+
+  @Override
+  public ResponseEntity<Object> getUSerAdminByToken(String token) {
+    User user = getUserOfSocket(token);
+    UserAdminResponse response = UserAdminResponse
+            .builder()
+            .userId(user.getUserId())
+            .accountId(user.getAccount().getAccountId())
+            .role(user.getAccount().getRole().getName())
+            .address(user.getAddress())
+            .createdAt(user.getCreatedAt())
+            .updatedAt(user.getUpdatedAt())
+            .email(user.getEmail())
+            .fullName(user.getFullName())
+            .status(user.getStatus())
+            .phoneNumber(user.getPhoneNumber())
+            .build();
     return ResponseEntity.ok().body(response);
   }
 
@@ -112,4 +137,10 @@ public class UserAdminServiceImpl implements UserAdminService {
     return ResponseEntity.ok().body("Update Success");
   }
 
+  public User getUserOfSocket(String token){
+    String username = jwtProviderUtils.getUserNameFromJwtToken(token);
+    Account account = accountRepository.findByusername(username);
+    User user = userRepositories.findById(account.getUser().getUserId()).orElseThrow(()->new DataNotFoundException("User does not exist"));
+    return user;
+  }
 }

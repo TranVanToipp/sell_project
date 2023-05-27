@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping("/see-more/{product-type-id}")
     public ResponseEntity<?> getAllProductByProductType(@PathVariable("product-type-id") String productTypeId,
-                                                        @RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize) {
+                                                        @RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         return new ResponseEntity<>(productService.getAllProductByProductTypeSeeMore(productTypeId, pageNumber, pageSize), HttpStatus.OK);
     }
 

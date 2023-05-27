@@ -37,7 +37,8 @@ public class SecurityConfig {
             "/comment-product",
             "/api/v1/product-home/**",
             "/api/v1/image/**",
-            "/api/v1/cart/**"
+            "/api/v1/cart/**",
+            "/api/v1/search/**"
 
     };
 

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -18,4 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     Page<Product> findAllByProductType(ProductType productType, Pageable pageable);
 
+    List<Product> findAllByPriceEquals(BigDecimal price);
+    @Query("SELECT p FROM Product p WHERE p.title LIKE %:keyword% OR p.productType.name LIKE %:keyword%")
+    List<Product> searchProducts(@Param("keyword") String keyword);
 }

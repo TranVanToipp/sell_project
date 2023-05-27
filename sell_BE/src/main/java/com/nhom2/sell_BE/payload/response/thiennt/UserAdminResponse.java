@@ -28,4 +28,6 @@ public class UserAdminResponse {
   private Date updatedAt;
 
   private String accountId;
+
+  private String role;
 }

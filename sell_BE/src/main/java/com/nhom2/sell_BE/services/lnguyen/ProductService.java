@@ -14,4 +14,6 @@ public interface ProductService {
     Page<ProductResponse> getAllProductByProductTypeSeeMore(String productTypeId, int pageNumber, int pageSize);
 
     ProductDetailsResponse getProductDetails(String productId);
+
+    List<ProductResponse> searchProduct(String keyword);
 }

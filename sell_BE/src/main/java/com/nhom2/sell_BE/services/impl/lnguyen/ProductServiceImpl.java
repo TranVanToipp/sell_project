@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -141,6 +143,50 @@ public class ProductServiceImpl implements ProductService {
         productDetails.setConfig(config);
 
         return productDetails;
+    }
+
+    @Override
+    public List<ProductResponse> searchProduct(String keyword) {
+        BigDecimal price = null;
+        try {
+            price = new BigDecimal(keyword);
+        } catch (NumberFormatException e) {
+            // Xử lý lỗi nếu từ khóa không phải là số hợp lệ
+            List<Product> products = productRepository.searchProducts(keyword);
+            products.sort(Comparator.comparing(Product::getTitle));
+            return products.stream().map(product -> {
+                List<Comment> comments = commentRepository.findAllByProduct(product);
+                String thumbnail = pathImage + product.getProductId();
+                int numberStars = 0;
+                int totalStars = 0;
+                if(comments.isEmpty()){
+                    numberStars = 5;
+                }else {
+                    for (Comment comment : comments){
+                        totalStars += comment.getNumberStars();
+                    }
+                    numberStars = totalStars/comments.size();
+                }
+                return new ProductResponse(product, thumbnail, numberStars);
+            }).collect(Collectors.toList());
+        }
+        List<Product> products = productRepository.findAllByPriceEquals(price);
+        products.sort(Comparator.comparing(Product::getPrice));
+        return products.stream().map(product -> {
+            List<Comment> comments = commentRepository.findAllByProduct(product);
+            String thumbnail = pathImage + product.getProductId();
+            int numberStars = 0;
+            int totalStars = 0;
+            if(comments.isEmpty()){
+                numberStars = 5;
+            }else {
+                for (Comment comment : comments){
+                    totalStars += comment.getNumberStars();
+                }
+                numberStars = totalStars/comments.size();
+            }
+            return new ProductResponse(product, thumbnail, numberStars);
+        }).collect(Collectors.toList());
     }
 
     public ProductTypeResponse setupResponse(ProductType item, List<Product> products){

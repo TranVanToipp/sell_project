@@ -10,6 +10,8 @@ public interface UserAdminService {
 
   ResponseEntity<Object> getAllUSerAdmin();
 
+  ResponseEntity<Object> getUSerAdminByToken(String token);
+
   ResponseEntity<Object> createUSerAdmin(UserAdminRequest request);
 
   ResponseEntity<Object> delete(String id);

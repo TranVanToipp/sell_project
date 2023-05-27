@@ -2,6 +2,7 @@ package com.nhom2.sell_BE.controller.thiennt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,23 +20,32 @@ import com.nhom2.sell_BE.services.thiennt.UserAdminService;
 public class UserAdminController {
   @Autowired
   private UserAdminService userAdminService;
+
+  @GetMapping("/{token}")
+  public ResponseEntity<Object> getUSerAdminByToken(@PathVariable("token") String token) {
+    return userAdminService.getUSerAdminByToken(token);
+  }
   
-  @GetMapping("get_all")
+  @GetMapping("")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> getAllUser() {
     return userAdminService.getAllUSerAdmin();
   }
   
   @PostMapping("create")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> getCreateUser(@RequestBody UserAdminRequest request) {
     return userAdminService.createUSerAdmin(request);
   }
   
   @PutMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> updateUser(@PathVariable("id") String id, @RequestBody RequestUpdateUser request) {
     return userAdminService.updateUser(id, request);
   }
   
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<Object> deleteUser(@PathVariable("id") String id) {
     return userAdminService.delete(id);
   }

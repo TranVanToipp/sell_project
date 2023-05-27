@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -72,8 +73,8 @@ public class Product implements Serializable {
     @OneToMany(mappedBy="product")
     private Set<Comment> comments = new HashSet<>();
 
-    @OneToOne(mappedBy = "product")
-    private OrderDetails orderDetails;
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetails> orderDetails;
 
     @ManyToOne
     @JoinColumn(name = "product_type_id", referencedColumnName = "product_type_id")
